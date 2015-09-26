@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RaisedButton">
+        <!--button color-->
+        <attr name="buttonColor" format="string" />
+        <!--Button enabled or disabled-->
+        <attr name="enabled" format="boolean" />
+        <!--text of the button-->
+        <attr name="text" format="string" />
+    </declare-styleable>
+
+</resources>

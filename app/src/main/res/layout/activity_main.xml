@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Enable buttons" />
+
+    <com.simple.material.RaisedButton
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btnDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        raised_button:cardCornerRadius="4dp"
+        raised_button:buttonColor="#0b5087"
+        raised_button:text="Dark theme" />
+
+    <com.simple.material.RaisedButton
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btnLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        raised_button:cardCornerRadius="4dp"
+        raised_button:buttonColor="#f9f9f9"
+        raised_button:text="Light theme" />
+
+</LinearLayout>
