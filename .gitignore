@@ -1,0 +1,8 @@
+simple-material-library/build/
+.idea/
+build/
+git_ssh
+git_ssh.pub
+local.properties
+.gradle/
+app/build/
