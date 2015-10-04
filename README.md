@@ -10,7 +10,7 @@ Add following to your `build.gradle` file:
         }
     }
     dependencies {
-      compile 'com.github.sufianbabri:simple-material-library:0.1.1'
+      compile 'com.github.sufianbabri:simple-material-library:0.1.2'
     }
 
 
@@ -22,6 +22,5 @@ Now you can simply add `RaisedButton` as below in your XML:
             xmlns:raised_button="http://schemas.android.com/apk/res-auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            raised_button:cardCornerRadius="4dp"
             raised_button:buttonColor="#0b5087"
             raised_button:text="Raised Button" />
