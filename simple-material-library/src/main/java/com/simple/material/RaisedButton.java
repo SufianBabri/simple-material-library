@@ -1,5 +1,7 @@
 package com.simple.material;
 
+import android.animation.AnimatorInflater;
+import android.animation.StateListAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -13,9 +15,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.simple.utils.DeviceUtils;
 import com.simple.utils.ValueUtils;
 
 /**
@@ -29,7 +34,7 @@ public class RaisedButton extends CardView {
 	private static final int LIGHT_THEME_DISABLED_TEXT_COLOUR = 0XFFBDBDBD;
 	private static final int LIGHT_THEME_DISABLED_BUTTON_COLOUR = 0XFFE1E1E1;
     private static final String DEFAULT_BUTTON_COLOUR = "#FF2196f3";
-    private Button mButton;
+    private TextView mTextView;
 
 	public RaisedButton(Context context) {
 		super(context);
@@ -52,12 +57,28 @@ public class RaisedButton extends CardView {
      * @param attrs
      */
 	private void init(@NonNull Context context, @Nullable AttributeSet attrs) {
-		mButton = new Button(context);
-		mButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-		addView(mButton);
+        final int density = (int) DeviceUtils.getDisplayDensity(context);
+        setCardElevation(2 * density);
+		mTextView = new TextView(context);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            StateListAnimator stateListAnimator = AnimatorInflater.loadStateListAnimator(context,
+//                    R.anim.lift_up);
+//            mTextView.setStateListAnimator(stateListAnimator);
+//        }
+        mTextView.setTextSize(14);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            mTextView.setAllCaps(true);
+        }
+//        mTextView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT));
+		addView(mTextView);
 
-		readAttrs(context, attrs);
+		setButtonUiFromAttrs(context, attrs);
+        mTextView.setMinWidth(88 * density);
+        mTextView.setMinHeight(36 * density);
+        mTextView.setPadding(16 * density, 0, 16 * density, 0);
+        mTextView.setClickable(true);
+        mTextView.setGravity(Gravity.CENTER);
 	}
 
     /**
@@ -65,7 +86,7 @@ public class RaisedButton extends CardView {
      * @param context
      * @param attrs
      */
-	private void readAttrs(Context context, AttributeSet attrs) {
+	private void setButtonUiFromAttrs(Context context, AttributeSet attrs) {
 		TypedArray a = context.getTheme().obtainStyledAttributes(
 				attrs,
 				R.styleable.RaisedButton,
@@ -89,16 +110,16 @@ public class RaisedButton extends CardView {
 				disabledTextColour = LIGHT_THEME_DISABLED_TEXT_COLOUR;
 				buttonDisabledColour = LIGHT_THEME_DISABLED_BUTTON_COLOUR;
 			}
-			mButton.setTextColor(getTextStateColour(enabledTextColour, disabledTextColour));
-			mButton.setEnabled(a.getBoolean(R.styleable.RaisedButton_enabled, true));
-			mButton.setText(a.getString(R.styleable.RaisedButton_text));
+			mTextView.setTextColor(getTextStateColour(enabledTextColour, disabledTextColour));
+			mTextView.setEnabled(a.getBoolean(R.styleable.RaisedButton_enabled, true));
+			mTextView.setText(a.getString(R.styleable.RaisedButton_text));
 
 			Drawable drawable = getBackgroundDrawable(buttonColour, buttonDisabledColour);
 			if (Build.VERSION.SDK_INT < 16) {
-				mButton.setBackgroundDrawable(drawable);
+				mTextView.setBackgroundDrawable(drawable);
 			}
 			else {
-				mButton.setBackground(drawable);
+				mTextView.setBackground(drawable);
 			}
 		}
 		finally {
@@ -185,16 +206,16 @@ public class RaisedButton extends CardView {
 
 	@Override
 	public void setOnClickListener(OnClickListener l) {
-		mButton.setOnClickListener(l);
+		mTextView.setOnClickListener(l);
 	}
 
 	@Override
 	public void setOnLongClickListener(OnLongClickListener l) {
-		mButton.setOnLongClickListener(l);
+		mTextView.setOnLongClickListener(l);
 	}
 
 	@Override
 	public void setEnabled(boolean enabled) {
-		mButton.setEnabled(enabled);
+		mTextView.setEnabled(enabled);
 	}
 }

@@ -1,6 +1,7 @@
 package com.simple.utils;
 
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * Utility class for converting values between different units
@@ -36,7 +37,8 @@ public class ValueUtils {
 	public static boolean isButtonColourDark(String colorHex) {
 		int[] rgb = ValueUtils.getRGB(colorHex);
 		double luminance = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
-		return luminance < 128;
+        Log.d("luminance", "bg luminance = " + luminance);
+		return luminance < 140;
 	}
 
 	/**

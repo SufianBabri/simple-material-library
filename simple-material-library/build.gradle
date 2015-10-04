@@ -12,7 +12,7 @@ ext {
     siteUrl = 'https://github.com/SufianBabri/simple-material-library'
     gitUrl = 'https://github.com/SufianBabri/simple-material-library.git'
 
-    libraryVersion = '0.1.1'
+    libraryVersion = '0.1.2'
 
     developerId = 'sufian88'
     developerName = 'Sufian Babri'
