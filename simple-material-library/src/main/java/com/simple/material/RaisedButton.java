@@ -76,7 +76,7 @@ public class RaisedButton extends CardView {
 		setButtonUiFromAttrs(context, attrs);
         mTextView.setMinWidth(88 * density);
         mTextView.setMinHeight(36 * density);
-        mTextView.setPadding(16 * density, 0, 16 * density, 0);
+        mTextView.setPadding(16 * density, 8 * density, 16 * density, 8 * density);
         mTextView.setClickable(true);
         mTextView.setGravity(Gravity.CENTER);
 	}
