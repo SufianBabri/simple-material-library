@@ -2,4 +2,5 @@
 <resources>
     <color name="colorAccentDark">#004d99</color>
     <color name="colorAccent">#0066CC</color>
+    <color name="blue">#2E93FB</color>
 </resources>

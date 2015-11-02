@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="RaisedButton">
         <!--button color-->
-        <attr name="buttonColor" format="string" />
+        <attr name="buttonColor" format="string|reference" />
         <!--Button enabled or disabled-->
         <attr name="enabled" format="boolean" />
         <!--text of the button-->

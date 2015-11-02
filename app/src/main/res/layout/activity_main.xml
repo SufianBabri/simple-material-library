@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        raised_button:buttonColor="#2E93FB"
+        raised_button:buttonColor="@color/blue"
         raised_button:text="Dark theme"/>
 
     <com.simple.material.RaisedButton
@@ -40,4 +40,17 @@
         android:layout_margin="10dp"
         raised_button:buttonColor="#f9f9f9"
         raised_button:text="Light theme"/>
+
+    <com.simple.material.RaisedButton
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        raised_button:buttonColor="@color/blue"
+        raised_button:text="@string/abc_action_bar_home_description"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
