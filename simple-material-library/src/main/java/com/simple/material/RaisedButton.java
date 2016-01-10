@@ -1,11 +1,10 @@
 package com.simple.material;
 
-import android.animation.AnimatorInflater;
-import android.animation.StateListAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
@@ -16,8 +15,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.simple.utils.DeviceUtils;
@@ -29,25 +28,30 @@ import com.simple.utils.ValueUtils;
 public class RaisedButton extends CardView {
     private static final int PERCENTAGE_SHADE_600 = 82;
 	private static final int PERCENTAGE_SHADE_700 = 58;
-	private static final int DARK_THEME_DISABLED_TEXT_COLOUR = 0XFF4D4D4D;
-	private static final int DARK_THEME_DISABLED_BUTTON_COLOUR = 0XFF1F1F1F;
-	private static final int LIGHT_THEME_DISABLED_TEXT_COLOUR = 0XFFBDBDBD;
-	private static final int LIGHT_THEME_DISABLED_BUTTON_COLOUR = 0XFFE1E1E1;
+	private static final int DARK_THEME_DISABLED_BUTTON_COLOUR = 0XFF404040;
+	private static final int DARK_THEME_DISABLED_TEXT_COLOUR = 0XFF7A7A7A;
+	private static final int LIGHT_THEME_DISABLED_BUTTON_COLOUR = 0XFFDFDFDF;
+	private static final int LIGHT_THEME_DISABLED_TEXT_COLOUR = 0XFF9F9F9F;
     private static final String DEFAULT_BUTTON_COLOUR = "#FF2196f3";
     private TextView mTextView;
+    private final int mDensity;
+    private @Nullable OnClickListener mClickListener;
 
-	public RaisedButton(Context context) {
+    public RaisedButton(Context context) {
 		super(context);
+        mDensity = (int) DeviceUtils.getDisplayDensity(context);
 		init(context, null);
 	}
 
 	public RaisedButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
+        mDensity = (int) DeviceUtils.getDisplayDensity(context);
 		init(context, attrs);
 	}
 
 	public RaisedButton(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+        mDensity = (int) DeviceUtils.getDisplayDensity(context);
 		init(context, attrs);
 	}
 
@@ -57,8 +61,8 @@ public class RaisedButton extends CardView {
      * @param attrs
      */
 	private void init(@NonNull Context context, @Nullable AttributeSet attrs) {
-        final int density = (int) DeviceUtils.getDisplayDensity(context);
-        setCardElevation(2 * density);
+        setMaxCardElevation(4 * mDensity);
+        setCardElevation(2 * mDensity);
 		mTextView = new TextView(context);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            StateListAnimator stateListAnimator = AnimatorInflater.loadStateListAnimator(context,
@@ -73,12 +77,9 @@ public class RaisedButton extends CardView {
 //                ViewGroup.LayoutParams.WRAP_CONTENT));
 		addView(mTextView);
 
-		setButtonUiFromAttrs(context, attrs);
-        mTextView.setMinWidth(88 * density);
-        mTextView.setMinHeight(36 * density);
-        mTextView.setPadding(16 * density, 8 * density, 16 * density, 8 * density);
         mTextView.setClickable(true);
         mTextView.setGravity(Gravity.CENTER);
+        setButtonUiFromAttrs(context, attrs);
 	}
 
     /**
@@ -86,7 +87,7 @@ public class RaisedButton extends CardView {
      * @param context
      * @param attrs
      */
-	private void setButtonUiFromAttrs(Context context, AttributeSet attrs) {
+	private void setButtonUiFromAttrs(final Context context, AttributeSet attrs) {
 		TypedArray a = context.getTheme().obtainStyledAttributes(
 				attrs,
 				R.styleable.RaisedButton,
@@ -94,6 +95,18 @@ public class RaisedButton extends CardView {
 
 		try {
 			setPreventCornerOverlap(false);
+            if (a.getBoolean(R.styleable.RaisedButton_smallButton, false)) {
+                int minWidth = a.getInt(R.styleable.RaisedButton_minWidth, 48);
+                int minHeight = a.getInt(R.styleable.RaisedButton_minHeight, 28);
+                mTextView.setMinWidth(minWidth * mDensity);
+                mTextView.setMinHeight(minHeight * mDensity);
+                mTextView.setPadding(8 * mDensity, 4 * mDensity, 8 * mDensity, 4 * mDensity);
+            }
+            else {
+                mTextView.setMinWidth(88 * mDensity);
+                mTextView.setMinHeight(36 * mDensity);
+                mTextView.setPadding(16 * mDensity, 8 * mDensity, 16 * mDensity, 8 * mDensity);
+            }
 			String buttonColour;
 			int enabledTextColour, disabledTextColour, buttonDisabledColour;
 			if ((buttonColour = a.getString(R.styleable.RaisedButton_buttonColor)) == null) {
@@ -121,12 +134,65 @@ public class RaisedButton extends CardView {
 			else {
 				mTextView.setBackground(drawable);
 			}
+            addClickEffects();
 		}
 		finally {
 			a.recycle();
 		}
 
 	}
+
+    private void addClickEffects() {
+        final Rect textViewBounds = new Rect();
+        mTextView.getDrawingRect(textViewBounds);
+        mTextView.setOnTouchListener(new OnTouchListener() {
+            private boolean touchValid;
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                final Rect textViewBounds = new Rect();
+                mTextView.getHitRect(textViewBounds);
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        touchValid = true;
+                        setCardElevation(4 * mDensity);
+                        setButtonPressed(true);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        touchValid = false;
+                        if(!textViewBounds.contains((int) motionEvent.getX(), (int) motionEvent.getY())) {
+                            touchValid = false;
+                        }
+                        else {
+                            break;
+                        }
+                    case MotionEvent.ACTION_UP:
+                        if(mClickListener != null && touchValid) {
+                            mClickListener.onClick(RaisedButton.this);
+                        }
+                    default:
+                        setButtonPressed(false);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    /**
+     * If {@param pressed} is true, the button shows up as pressed and {@code 4dp} shadow.
+     * <br/>
+     * Otherwise it shows as normal state and {@code 2dp} elevation/shadow.
+     * @param pressed
+     */
+    private void setButtonPressed(boolean pressed) {
+        mTextView.setPressed(pressed);
+        if(pressed) {
+            setCardElevation(4 * mDensity);
+        }
+        else {
+            setCardElevation(2 * mDensity);
+        }
+    }
 
     /**
      * Generates Drawable to be used as button's background
@@ -205,13 +271,8 @@ public class RaisedButton extends CardView {
 	}
 
 	@Override
-	public void setOnClickListener(OnClickListener l) {
-		mTextView.setOnClickListener(l);
-	}
-
-	@Override
-	public void setOnLongClickListener(OnLongClickListener l) {
-		mTextView.setOnLongClickListener(l);
+	public void setOnClickListener(OnClickListener clickListener) {
+		mClickListener = clickListener;
 	}
 
 	@Override

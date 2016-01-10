@@ -11,8 +11,10 @@ import com.simple.utils.DeviceUtils;
 
 /**
  * Material Flat button
+ * <br/>
+ * TODO complete the colour schemes (dark and light themes)
  */
-public class FlatButton extends TextView {
+class FlatButton extends TextView {
     public FlatButton(Context context) {
         super(context);
         init();
@@ -35,7 +37,7 @@ public class FlatButton extends TextView {
     }
 
     private void init() {
-        setThe(R.attr.colorControlHighlight);
+//        setThe(R.attr.colorControlHighlight);
         final int density = (int) DeviceUtils.getDisplayDensity(getContext());
         setMinWidth(88 * density);
         setMinHeight(36 * density);

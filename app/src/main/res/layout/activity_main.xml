@@ -42,15 +42,24 @@
         raised_button:text="Light theme"/>
 
     <com.simple.material.RaisedButton
+        android:id="@+id/btnMore"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:raised_button="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         raised_button:buttonColor="@color/blue"
-        raised_button:text="@string/abc_action_bar_home_description"/>
+        raised_button:smallButton="true"
+        raised_button:text="More"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <com.simple.material.RaisedButton
+        android:id="@+id/btnEmpty"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        raised_button:buttonColor="@color/blue"
+        raised_button:smallButton="true"/>
+
 </LinearLayout>
