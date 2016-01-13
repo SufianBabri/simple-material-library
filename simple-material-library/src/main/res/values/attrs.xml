@@ -7,12 +7,12 @@
         <attr name="enabled" format="boolean" />
         <!--Small buttons will have less padding and min dimensions-->
         <attr name="smallButton" format="boolean" />
-        <!--Useful if custom width is desired for a small button. Default is 48dp-->
+        <!--Useful if custom width is desired for a small button. Default is 78dp-->
         <attr name="minWidth" format="integer" />
         <!--Useful if custom height is desired for a small button. Default is 28dp-->
         <attr name="minHeight" format="integer" />
         <!--text of the button-->
-        <attr name="text" format="string" />
+        <attr name="text" format="string|reference" />
     </declare-styleable>
 
 </resources>

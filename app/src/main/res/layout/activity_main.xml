@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         raised_button:buttonColor="@color/blue"
-        raised_button:text="Dark theme"/>
+        raised_button:text="@string/darkTheme"/>
 
     <com.simple.material.RaisedButton
         android:id="@+id/btnLight"

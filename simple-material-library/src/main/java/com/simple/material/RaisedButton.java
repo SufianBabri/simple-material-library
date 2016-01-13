@@ -12,6 +12,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -33,6 +34,8 @@ public class RaisedButton extends CardView {
 	private static final int LIGHT_THEME_DISABLED_BUTTON_COLOUR = 0XFFDFDFDF;
 	private static final int LIGHT_THEME_DISABLED_TEXT_COLOUR = 0XFF9F9F9F;
     private static final String DEFAULT_BUTTON_COLOUR = "#FF2196f3";
+    private static final int NORMAL_SHADOW = 2;
+    private static final int PRESSED_SHADOW = 4;
     private TextView mTextView;
     private final int mDensity;
     private @Nullable OnClickListener mClickListener;
@@ -61,8 +64,8 @@ public class RaisedButton extends CardView {
      * @param attrs
      */
 	private void init(@NonNull Context context, @Nullable AttributeSet attrs) {
-        setMaxCardElevation(4 * mDensity);
-        setCardElevation(2 * mDensity);
+        setMaxCardElevation(PRESSED_SHADOW * mDensity);
+        setCardElevation(NORMAL_SHADOW * mDensity);
 		mTextView = new TextView(context);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            StateListAnimator stateListAnimator = AnimatorInflater.loadStateListAnimator(context,
@@ -96,7 +99,7 @@ public class RaisedButton extends CardView {
 		try {
 			setPreventCornerOverlap(false);
             if (a.getBoolean(R.styleable.RaisedButton_smallButton, false)) {
-                int minWidth = a.getInt(R.styleable.RaisedButton_minWidth, 48);
+                int minWidth = a.getInt(R.styleable.RaisedButton_minWidth, 78);
                 int minHeight = a.getInt(R.styleable.RaisedButton_minHeight, 28);
                 mTextView.setMinWidth(minWidth * mDensity);
                 mTextView.setMinHeight(minHeight * mDensity);
@@ -154,11 +157,9 @@ public class RaisedButton extends CardView {
                 switch(motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         touchValid = true;
-                        setCardElevation(4 * mDensity);
                         setButtonPressed(true);
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        touchValid = false;
                         if(!textViewBounds.contains((int) motionEvent.getX(), (int) motionEvent.getY())) {
                             touchValid = false;
                         }
@@ -179,18 +180,18 @@ public class RaisedButton extends CardView {
     }
 
     /**
-     * If {@param pressed} is true, the button shows up as pressed and {@code 4dp} shadow.
+     * If {@param pressed} is true, the button shows up as pressed and {@value #PRESSED_SHADOW}dp shadow.
      * <br/>
-     * Otherwise it shows as normal state and {@code 2dp} elevation/shadow.
+     * Otherwise it shows as normal state and {@value #NORMAL_SHADOW}dp elevation/shadow.
      * @param pressed
      */
     private void setButtonPressed(boolean pressed) {
         mTextView.setPressed(pressed);
         if(pressed) {
-            setCardElevation(4 * mDensity);
+            setCardElevation(PRESSED_SHADOW * mDensity);
         }
         else {
-            setCardElevation(2 * mDensity);
+            setCardElevation(NORMAL_SHADOW * mDensity);
         }
     }
 
@@ -279,4 +280,12 @@ public class RaisedButton extends CardView {
 	public void setEnabled(boolean enabled) {
 		mTextView.setEnabled(enabled);
 	}
+
+    public void setText(@StringRes int resId) {
+        mTextView.setText(resId);
+    }
+
+    public void setText(String text) {
+        mTextView.setText(text);
+    }
 }
