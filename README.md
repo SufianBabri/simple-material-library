@@ -1,5 +1,6 @@
-# simple-material-library
-A simple Material library which follows [Google's Material Design][1]. Lollipop specific effects (such as ripples) won't be ported-back to older versions of Android.
+[ ![Download](https://api.bintray.com/packages/sufian88/maven/simple-material-library/images/download.svg) ](https://bintray.com/sufian88/maven/simple-material-library/_latestVersion)
+# Simple Material Library
+As the names says, it is a simple library which follows [Google's Material Design][1]. Lollipop specific effects (such as ripples) won't be ported-back to older versions of Android.
 
 # Gradle Dependency
 Add following to your `build.gradle` file:
@@ -34,19 +35,24 @@ Now you can simply add `RaisedButton` as below in your XML:
             raised_button:smallButton="true"
             raised_button:text="More" />
             
-List of attributes and their descriptions:
+# Attributes and their descriptions:
 
         <!--button color-->
         <attr name="buttonColor" format="string|reference" />
+
         <!--Button enabled or disabled-->
         <attr name="enabled" format="boolean" />
+
         <!--Small buttons will have less padding and min dimensions-->
         <attr name="smallButton" format="boolean" />
+
         <!--Useful if custom width is desired for a small button. Default is 78dp-->
         <attr name="minWidth" format="integer" />
+
         <!--Useful if custom height is desired for a small button. Default is 28dp-->
         <attr name="minHeight" format="integer" />
+
         <!--text of the button-->
         <attr name="text" format="string|reference" />
-        
+
   [1]: www.google.com/design/spec/material-design/introduction.html
