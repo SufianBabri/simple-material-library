@@ -18,30 +18,46 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final RaisedButton btnDark = (RaisedButton) findViewById(R.id.btnDark);
-        final RaisedButton btnLight = (RaisedButton) findViewById(R.id.btnLight);
+		final RaisedButton btnLight = (RaisedButton) findViewById(R.id.btnLight);
+		final RaisedButton btnDark1 = (RaisedButton) findViewById(R.id.btnDark1);
+		final RaisedButton btnDark2 = (RaisedButton) findViewById(R.id.btnDark2);
+		final RaisedButton btnDark3 = (RaisedButton) findViewById(R.id.btnDark3);
         final RaisedButton btnMore = (RaisedButton) findViewById(R.id.btnMore);
         final RaisedButton btnEmpty = (RaisedButton) findViewById(R.id.btnEmpty);
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnDark.setEnabled(checkBox.isChecked());
                 btnLight.setEnabled(checkBox.isChecked());
-                btnMore.setEnabled(checkBox.isChecked());
+				btnDark1.setEnabled(checkBox.isChecked());
+				btnDark2.setEnabled(checkBox.isChecked());
+				btnDark3.setEnabled(checkBox.isChecked());
+				btnMore.setEnabled(checkBox.isChecked());
                 btnEmpty.setEnabled(checkBox.isChecked());
             }
         });
-        btnDark.setOnClickListener(new View.OnClickListener() {
+		btnLight.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Toast.makeText(MainActivity.this, "light button clicked", Toast.LENGTH_SHORT).show();
+			}
+		});
+        btnDark1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "dark button clicked", Toast.LENGTH_SHORT).show();
             }
         });
-        btnLight.setOnClickListener(new View.OnClickListener() {
+        btnDark2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "light button clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "dark button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnDark3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "dark button clicked", Toast.LENGTH_SHORT).show();
             }
         });
         btnMore.setOnClickListener(new View.OnClickListener() {

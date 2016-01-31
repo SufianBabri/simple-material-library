@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="RaisedButton">
+        <!--icon to show at left-->
+        <attr name="iconStart" format="reference" />
+        <!--icon to show at start-->
+        <attr name="iconLeft" format="reference" />
         <!--button color-->
-        <attr name="buttonColor" format="string|reference" />
+        <attr name="buttonColor" format="string" />
         <!--Button enabled or disabled-->
         <attr name="enabled" format="boolean" />
         <!--Small buttons will have less padding and min dimensions-->
@@ -12,7 +16,7 @@
         <!--Useful if custom height is desired for a small button. Default is 28dp-->
         <attr name="minHeight" format="integer" />
         <!--text of the button-->
-        <attr name="text" format="string|reference" />
+        <attr name="text" format="string" />
     </declare-styleable>
 
 </resources>

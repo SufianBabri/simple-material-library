@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">SimpleMaterialLibrary</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="raised_button">Raised Button</string>
-    <string name="darkTheme">Dark theme</string>
 </resources>
