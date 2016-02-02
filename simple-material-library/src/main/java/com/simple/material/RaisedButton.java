@@ -82,6 +82,7 @@ public class RaisedButton extends CardView {
 
 		mTextView.setClickable(true);
 		mTextView.setGravity(Gravity.CENTER);
+		mTextView.setCompoundDrawablePadding(10 * mDensity);
 		setButtonUiFromAttrs(context, attrs);
 	}
 
@@ -117,7 +118,7 @@ public class RaisedButton extends CardView {
 			setPreventCornerOverlap(false);
 			if (typedArray.getBoolean(R.styleable.RaisedButton_smallButton, false)) {
 				int minWidth = typedArray.getInt(R.styleable.RaisedButton_minWidth, 78);
-				int minHeight = typedArray.getInt(R.styleable.RaisedButton_minHeight, 28);
+				int minHeight = typedArray.getInt(R.styleable.RaisedButton_minHeight, 35);
 				mTextView.setMinWidth(minWidth * mDensity);
 				mTextView.setMinHeight(minHeight * mDensity);
 				mTextView.setPadding(8 * mDensity, 4 * mDensity, 8 * mDensity, 4 * mDensity);

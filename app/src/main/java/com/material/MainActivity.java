@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 		final RaisedButton btnDark1 = (RaisedButton) findViewById(R.id.btnDark1);
 		final RaisedButton btnDark2 = (RaisedButton) findViewById(R.id.btnDark2);
 		final RaisedButton btnDark3 = (RaisedButton) findViewById(R.id.btnDark3);
+		final RaisedButton btnDark4 = (RaisedButton) findViewById(R.id.btnDark4);
         final RaisedButton btnMore = (RaisedButton) findViewById(R.id.btnMore);
         final RaisedButton btnEmpty = (RaisedButton) findViewById(R.id.btnEmpty);
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 				btnDark1.setEnabled(checkBox.isChecked());
 				btnDark2.setEnabled(checkBox.isChecked());
 				btnDark3.setEnabled(checkBox.isChecked());
+				btnDark4.setEnabled(checkBox.isChecked());
 				btnMore.setEnabled(checkBox.isChecked());
                 btnEmpty.setEnabled(checkBox.isChecked());
             }
@@ -48,13 +50,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "dark button clicked", Toast.LENGTH_SHORT).show();
             }
         });
-        btnDark2.setOnClickListener(new View.OnClickListener() {
+		btnDark2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Toast.makeText(MainActivity.this, "dark button clicked", Toast.LENGTH_SHORT).show();
+			}
+		});
+		btnDark3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "dark button clicked", Toast.LENGTH_SHORT).show();
             }
         });
-        btnDark3.setOnClickListener(new View.OnClickListener() {
+        btnDark4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "dark button clicked", Toast.LENGTH_SHORT).show();

@@ -2,11 +2,8 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:gravity="center_horizontal"
               android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
               tools:context=".MainActivity">
 
     <CheckBox
@@ -36,10 +33,22 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         raised_button:buttonColor="@color/blue"
-        raised_button:text="Raised Button (normal)"/>
+        raised_button:text="Raised Button (wrap)"/>
 
     <com.simple.material.RaisedButton
         android:id="@+id/btnDark2"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        raised_button:buttonColor="@color/blue"
+        raised_button:iconStart="@drawable/abc_switch_track_mtrl_alpha"
+        raised_button:text="Raised Button (wrap + icon)"/>
+
+    <com.simple.material.RaisedButton
+        android:id="@+id/btnDark3"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:raised_button="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -50,7 +59,7 @@
         raised_button:text="Raised Button (wide)"/>
 
     <com.simple.material.RaisedButton
-        android:id="@+id/btnDark3"
+        android:id="@+id/btnDark4"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:raised_button="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
