@@ -19,13 +19,13 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.simple.utils.DeviceUtils;
-import com.simple.utils.ValueUtils;
+import com.simple.material.utils.ColorUtils;
+import com.simple.material.utils.DeviceUtils;
+import com.simple.material.utils.ValueUtils;
 
 /**
  * Material Raised button
@@ -33,18 +33,16 @@ import com.simple.utils.ValueUtils;
 public class RaisedButton extends CardView {
 	private static final int PERCENTAGE_SHADE_600 = 82;
 	private static final int PERCENTAGE_SHADE_700 = 58;
-	private static final int DARK_THEME_DISABLED_BUTTON_COLOUR = 0XFF404040;
-	private static final int DARK_THEME_DISABLED_TEXT_COLOUR = 0XFF7A7A7A;
-	private static final int LIGHT_THEME_DISABLED_BUTTON_COLOUR = 0XFFDFDFDF;
-	private static final int LIGHT_THEME_DISABLED_TEXT_COLOUR = 0XFF9F9F9F;
-	private static final String DEFAULT_BUTTON_COLOUR = "#FF2196F3";
+	private static final int DARK_THEME_DISABLED_BUTTON_COLOR = 0XFF404040;
+	private static final int DARK_THEME_DISABLED_TEXT_COLOR = 0XFF7E7E7E;
+	private static final int LIGHT_THEME_DISABLED_BUTTON_COLOR = 0XFFDFDFDF;
+	private static final int LIGHT_THEME_DISABLED_TEXT_COLOR = 0XFF9F9F9F;
+	private static final int DEFAULT_BUTTON_COLOR = 0xFF2196F3;
 	private static final int NORMAL_SHADOW = 2;
-	private static final int PRESSED_SHADOW = 6;
+	private static final int PRESSED_SHADOW = 4;
 	private final int mDensity;
 	private TextView mTextView;
-	private
-	@Nullable
-	OnClickListener mClickListener;
+	private	@Nullable OnClickListener mClickListener;
 
 	public RaisedButton(Context context) {
 		super(context);
@@ -64,6 +62,12 @@ public class RaisedButton extends CardView {
 		init(context, attrs);
 	}
 
+	@Override
+	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+		super.onLayout(changed, left, top, right, bottom);
+		addMargins();
+	}
+
 	/**
 	 * Creates and adds button to this {@link CardView}
 	 *
@@ -73,52 +77,85 @@ public class RaisedButton extends CardView {
 	private void init(@NonNull Context context, @Nullable AttributeSet attrs) {
 		setMaxCardElevation(PRESSED_SHADOW * mDensity);
 		setCardElevation(NORMAL_SHADOW * mDensity);
-		mTextView = new TextView(context);
-		mTextView.setTextSize(14);
+		addTextView();
+		addClickEffects();
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			mTextView.setAllCaps(true);
 		}
-		addView(mTextView);
-
-		mTextView.setClickable(true);
-		mTextView.setGravity(Gravity.CENTER);
-		mTextView.setCompoundDrawablePadding(10 * mDensity);
-		setButtonUiFromAttrs(context, attrs);
-	}
-
-	@Override
-	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-		if(isInEditMode()) {
-			ViewGroup.LayoutParams lp = getLayoutParams();
-			if (lp instanceof LinearLayout.LayoutParams) {
-				((LinearLayout.LayoutParams) lp).setMargins(0, 0, 0, 10 * mDensity);
-			}
-			else if (lp instanceof RelativeLayout.LayoutParams) {
-				//TODO make this work
-				((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 10 * mDensity);
-			}
-		}
-		super.onLayout(changed, left, top, right, bottom);
-
+		loadAttrs(context, attrs);
 	}
 
 	/**
-	 * Reads attrs and set the button's background and text colours.
+	 * Adds margins to the {@link RaisedButton} so that it doesn't overlap with
+	 * other widgets on devices running Lollipop and above
+	 */
+	private void addMargins() {
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			int pressedShadowDp = (int) getMaxCardElevation();
+			if (getLayoutParams() instanceof LinearLayout.LayoutParams) {
+				LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getLayoutParams();
+				layoutParams.setMargins(layoutParams.leftMargin + pressedShadowDp/2,
+						layoutParams.topMargin + pressedShadowDp,
+						layoutParams.rightMargin + pressedShadowDp/2,
+						layoutParams.bottomMargin + pressedShadowDp);
+			}
+			else if (getLayoutParams() instanceof RelativeLayout.LayoutParams) {
+				RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) getLayoutParams();
+				layoutParams.setMargins(layoutParams.leftMargin + pressedShadowDp/2,
+						layoutParams.topMargin + pressedShadowDp,
+						layoutParams.rightMargin + pressedShadowDp/2,
+						layoutParams.bottomMargin + pressedShadowDp);
+			}
+		}
+		else {
+			int pressedShadowDp = (int) getMaxCardElevation() / 2;
+			if (getLayoutParams() instanceof LinearLayout.LayoutParams) {
+				LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getLayoutParams();
+				layoutParams.setMargins(layoutParams.leftMargin,
+						layoutParams.topMargin - pressedShadowDp,
+						layoutParams.rightMargin,
+						layoutParams.bottomMargin - pressedShadowDp);
+			}
+			else if (getLayoutParams() instanceof RelativeLayout.LayoutParams) {
+				RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) getLayoutParams();
+				layoutParams.setMargins(layoutParams.leftMargin,
+						layoutParams.topMargin - pressedShadowDp,
+						layoutParams.rightMargin,
+						layoutParams.bottomMargin - pressedShadowDp);
+			}
+		}
+	}
+
+	/**
+	 * Creates a TextView and sets properties and adds it, to complete the {@link RaisedButton}
+	 */
+	private void addTextView() {
+		mTextView = new TextView(getContext());
+		mTextView.setTextSize(14);
+		mTextView.setClickable(true);
+		mTextView.setGravity(Gravity.CENTER);
+		mTextView.setCompoundDrawablePadding(10 * mDensity);
+		addView(mTextView);
+	}
+
+	/**
+	 * Reads attrs and set the button's background and text colors.
 	 *
 	 * @param context
 	 * @param attrs
 	 */
-	private void setButtonUiFromAttrs(final Context context, AttributeSet attrs) {
-		TypedArray typedArray = context.getTheme().obtainStyledAttributes(
+	private void loadAttrs(@NonNull final Context context, @Nullable AttributeSet attrs) {
+		TypedArray a = context.getTheme().obtainStyledAttributes(
 				attrs,
 				R.styleable.RaisedButton,
 				0, 0);
 
 		try {
 			setPreventCornerOverlap(false);
-			if (typedArray.getBoolean(R.styleable.RaisedButton_smallButton, false)) {
-				int minWidth = typedArray.getInt(R.styleable.RaisedButton_minWidth, 78);
-				int minHeight = typedArray.getInt(R.styleable.RaisedButton_minHeight, 35);
+			if (a.getBoolean(R.styleable.RaisedButton_smallButton, false)) {
+				int minWidth = a.getInt(R.styleable.RaisedButton_minWidth, 70);
+				int minHeight = a.getInt(R.styleable.RaisedButton_minHeight, 36);
 				mTextView.setMinWidth(minWidth * mDensity);
 				mTextView.setMinHeight(minHeight * mDensity);
 				mTextView.setPadding(8 * mDensity, 4 * mDensity, 8 * mDensity, 4 * mDensity);
@@ -128,43 +165,45 @@ public class RaisedButton extends CardView {
 				mTextView.setMinHeight(36 * mDensity);
 				mTextView.setPadding(16 * mDensity, 8 * mDensity, 16 * mDensity, 8 * mDensity);
 			}
-			if (typedArray.hasValue(R.styleable.RaisedButton_iconStart)) {
-				setStartIcon(typedArray.getResourceId(R.styleable.RaisedButton_iconStart, 0));
+			if (a.hasValue(R.styleable.RaisedButton_iconStart)) {
+				setStartIcon(a.getResourceId(R.styleable.RaisedButton_iconStart, 0));
 			}
-			else if (typedArray.hasValue(R.styleable.RaisedButton_iconLeft)) {
-				setLeftIcon(typedArray.getResourceId(R.styleable.RaisedButton_iconLeft, 0));
+			else if (a.hasValue(R.styleable.RaisedButton_iconLeft)) {
+				setLeftIcon(a.getResourceId(R.styleable.RaisedButton_iconLeft, 0));
 			}
-			String buttonColour;
-			int enabledTextColour, disabledTextColour, buttonDisabledColour;
-			if ((buttonColour = typedArray.getString(R.styleable.RaisedButton_buttonColor)) == null) {
-				buttonColour = DEFAULT_BUTTON_COLOUR;
-			}
-
-			if (ValueUtils.isButtonColourDark(buttonColour)) {
-				enabledTextColour = Color.WHITE;
-				disabledTextColour = DARK_THEME_DISABLED_TEXT_COLOUR;
-				buttonDisabledColour = DARK_THEME_DISABLED_BUTTON_COLOUR;
+			int buttonColor;
+			int enabledTextColor, disabledTextColor, buttonDisabledColor;
+			if (a.hasValue(R.styleable.RaisedButton_buttonColor)) {
+				buttonColor = a.getColor(R.styleable.RaisedButton_buttonColor, DEFAULT_BUTTON_COLOR);
 			}
 			else {
-				enabledTextColour = Color.BLACK;
-				disabledTextColour = LIGHT_THEME_DISABLED_TEXT_COLOUR;
-				buttonDisabledColour = LIGHT_THEME_DISABLED_BUTTON_COLOUR;
+				buttonColor = ColorUtils.resolveColor(context, R.attr.colorAccent, DEFAULT_BUTTON_COLOR);
 			}
-			mTextView.setTextColor(getTextStateColour(enabledTextColour, disabledTextColour));
-			mTextView.setEnabled(typedArray.getBoolean(R.styleable.RaisedButton_enabled, true));
-			mTextView.setText(typedArray.getString(R.styleable.RaisedButton_text));
 
-			Drawable drawable = getBackgroundDrawable(buttonColour, buttonDisabledColour);
+			if (ColorUtils.isBackgroundColorDark(buttonColor)) {
+				enabledTextColor = Color.WHITE;
+				disabledTextColor = DARK_THEME_DISABLED_TEXT_COLOR;
+				buttonDisabledColor = DARK_THEME_DISABLED_BUTTON_COLOR;
+			}
+			else {
+				enabledTextColor = Color.BLACK;
+				disabledTextColor = LIGHT_THEME_DISABLED_TEXT_COLOR;
+				buttonDisabledColor = LIGHT_THEME_DISABLED_BUTTON_COLOR;
+			}
+			mTextView.setTextColor(ColorUtils.getTextStateColor(enabledTextColor, disabledTextColor));
+			mTextView.setEnabled(a.getBoolean(R.styleable.RaisedButton_enabled, true));
+			mTextView.setText(a.getString(R.styleable.RaisedButton_text));
+
+			Drawable drawable = getBackgroundDrawable(buttonColor, buttonDisabledColor);
 			if (Build.VERSION.SDK_INT < 16) {
 				mTextView.setBackgroundDrawable(drawable);
 			}
 			else {
 				mTextView.setBackground(drawable);
 			}
-			addClickEffects();
 		}
 		finally {
-			typedArray.recycle();
+			a.recycle();
 		}
 
 	}
@@ -224,22 +263,21 @@ public class RaisedButton extends CardView {
 	/**
 	 * Generates Drawable to be used as button's background
 	 *
-	 * @param normalColourHex
-	 * @param disabledColour
+	 * @param normalColor
+	 * @param disabledColor
 	 * @return
 	 */
-	private Drawable getBackgroundDrawable(String normalColourHex, int disabledColour) {
-		int normalColour = Color.parseColor(normalColourHex);
+	private Drawable getBackgroundDrawable(int normalColor, int disabledColor) {
 
-		int pressedColour = getPressedColour(normalColour);
-		int focusedColour = getFocusedColour(normalColour);
+		int pressedColor = getPressedColor(normalColor);
+		int focusedColor = getFocusedColor(normalColor);
 
 		if (Build.VERSION.SDK_INT < 21) {
 			StateListDrawable drawable = new StateListDrawable();
-			drawable.addState(new int[]{android.R.attr.state_focused}, new ColorDrawable(focusedColour));
-			drawable.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(pressedColour));
-			drawable.addState(new int[]{-android.R.attr.state_enabled}, new ColorDrawable(disabledColour));
-			drawable.addState(new int[]{}, new ColorDrawable(normalColour));
+			drawable.addState(new int[]{android.R.attr.state_focused}, new ColorDrawable(focusedColor));
+			drawable.addState(new int[]{-android.R.attr.state_enabled}, new ColorDrawable(disabledColor));
+			drawable.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(pressedColor));
+			drawable.addState(new int[]{}, new ColorDrawable(normalColor));
 			return drawable;
 		}
 		else {
@@ -247,58 +285,39 @@ public class RaisedButton extends CardView {
 					new int[]{}
 			};
 
-			int[] colours = new int[]{
-					pressedColour
+			int[] colors = new int[]{
+					pressedColor
 			};
-			ColorStateList colourStateList = new ColorStateList(states, colours);
+			ColorStateList colorStateList = new ColorStateList(states, colors);
 
 			StateListDrawable drawable = new StateListDrawable();
-			drawable.addState(new int[]{android.R.attr.state_focused}, new ColorDrawable(focusedColour));
-			drawable.addState(new int[]{-android.R.attr.state_pressed}, new ColorDrawable(normalColour));
-			drawable.addState(new int[]{-android.R.attr.state_enabled}, new ColorDrawable(disabledColour));
-			drawable.addState(new int[]{}, new ColorDrawable(normalColour));
-			return new RippleDrawable(colourStateList, drawable, null);
+			drawable.addState(new int[]{android.R.attr.state_focused}, new ColorDrawable(focusedColor));
+			drawable.addState(new int[]{-android.R.attr.state_enabled}, new ColorDrawable(disabledColor));
+			drawable.addState(new int[]{android.R.attr.state_enabled}, new ColorDrawable(normalColor));
+			drawable.addState(new int[]{}, new ColorDrawable(normalColor));
+			//ripple will handle the pressed color
+			return new RippleDrawable(colorStateList, drawable, null);
 		}
 	}
 
 	/**
-	 * Calculates the colour by adding darkness to the default button's colour
+	 * Calculates the color by adding darkness to the default button's color
 	 *
-	 * @param normalColour
+	 * @param normalColor
 	 * @return
 	 */
-	private int getPressedColour(int normalColour) {
-		return ValueUtils.changeColourPercentageTo(normalColour, PERCENTAGE_SHADE_600);
+	private int getPressedColor(int normalColor) {
+		return ValueUtils.changeColorPercentageTo(normalColor, PERCENTAGE_SHADE_600);
 	}
 
 	/**
-	 * Calculates the colour by adding darkness to the default button's colour
+	 * Calculates the color by adding darkness to the default button's color
 	 *
-	 * @param normalColour
+	 * @param normalColor
 	 * @return
 	 */
-	private int getFocusedColour(int normalColour) {
-		return ValueUtils.changeColourPercentageTo(normalColour, PERCENTAGE_SHADE_700);
-	}
-
-	/**
-	 * creates text's colours state list. This has two colours, one for enabled and the other for disabled button state.
-	 *
-	 * @param enabledTextColour
-	 * @param disabledTextColour
-	 * @return
-	 */
-	private ColorStateList getTextStateColour(int enabledTextColour, int disabledTextColour) {
-		int[][] states = new int[][]{
-				new int[]{android.R.attr.state_enabled},
-				new int[]{},
-		};
-
-		int[] colours = new int[]{
-				enabledTextColour,
-				disabledTextColour
-		};
-		return new ColorStateList(states, colours);
+	private int getFocusedColor(int normalColor) {
+		return ValueUtils.changeColorPercentageTo(normalColor, PERCENTAGE_SHADE_700);
 	}
 
 	@Override

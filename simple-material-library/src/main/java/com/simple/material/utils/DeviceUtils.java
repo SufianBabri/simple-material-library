@@ -1,4 +1,4 @@
-package com.simple.utils;
+package com.simple.material.utils;
 
 import android.content.Context;
 

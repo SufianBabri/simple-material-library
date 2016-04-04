@@ -1,4 +1,4 @@
-package com.simple.utils;
+package com.simple.material.utils;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -34,7 +34,8 @@ public class ValueUtils {
 		return new int[]{r, g, b};
 	}
 
-	public static boolean isButtonColourDark(String colorHex) {
+	public static boolean isButtonColorDark(String colorHex) {
+		// TODO see if ColorUtils.calculateLuminance() is better (ColorUtils from support lib)
 		int[] rgb = ValueUtils.getRGB(colorHex);
 		double luminance = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
         Log.d("luminance", "bg luminance = " + luminance);
@@ -42,13 +43,14 @@ public class ValueUtils {
 	}
 
 	/**
-	 * Changes percentage of colour's rgb values
-	 * @param colour
+	 * Changes percentage of color's rgb values
+	 * @param color
 	 * @param percentage
 	 * @return
 	 */
-	public static int changeColourPercentageTo(int colour, int percentage) {
-		return Color.rgb(Color.red(colour) * percentage / 100,
-				Color.green(colour) * percentage / 100, Color.blue(colour) * percentage / 100);
+	public static int changeColorPercentageTo(int color, int percentage) {
+		return Color.rgb(Color.red(color) * percentage / 100,
+				Color.green(color) * percentage / 100, Color.blue(color) * percentage / 100);
 	}
+
 }

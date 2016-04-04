@@ -6,3 +6,4 @@ git_ssh.pub
 local.properties
 .gradle/
 app/build/
+*.apk

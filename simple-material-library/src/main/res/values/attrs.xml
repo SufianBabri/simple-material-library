@@ -6,7 +6,7 @@
         <!--icon to show at start-->
         <attr name="iconLeft" format="reference" />
         <!--button color-->
-        <attr name="buttonColor" format="string" />
+        <attr name="buttonColor" format="color" />
         <!--Button enabled or disabled-->
         <attr name="enabled" format="boolean" />
         <!--Small buttons will have less padding and min dimensions-->
@@ -17,6 +17,11 @@
         <attr name="minHeight" format="integer" />
         <!--text of the button-->
         <attr name="text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="FlatButton">
+        <!--optional color of the text. If not provided, colorAccent will be used instead-->
+        <attr name="textColor" format="string" />
     </declare-styleable>
 
 </resources>

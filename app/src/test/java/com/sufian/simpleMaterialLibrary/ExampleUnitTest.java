@@ -1,4 +1,4 @@
-package com.material;
+package com.sufian.simpleMaterialLibrary;
 
 import org.junit.Test;
 

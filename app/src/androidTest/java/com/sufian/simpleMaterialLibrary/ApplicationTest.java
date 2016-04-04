@@ -1,4 +1,4 @@
-package com.material;
+package com.sufian.simpleMaterialLibrary;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

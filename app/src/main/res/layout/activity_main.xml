@@ -1,96 +1,101 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-              android:orientation="vertical"
-              tools:context=".MainActivity">
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:gravity="center_horizontal"
+			  android:orientation="vertical"
+			  tools:context=".MainActivity">
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="Enable buttons"/>
+	<CheckBox
+		android:id="@+id/checkBox"
+		android:visibility="gone"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:checked="true"
+		android:text="Enable buttons"/>
 
-    <com.simple.material.RaisedButton
-        android:id="@+id/btnLight"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        raised_button:buttonColor="#f9f9f9"
-        raised_button:text="Light theme"/>
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-    <com.simple.material.RaisedButton
-        android:id="@+id/btnDark1"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        raised_button:buttonColor="@color/blue"
-        raised_button:text="Raised Button (wrap)"/>
+		<com.simple.material.RaisedButton
+			android:id="@+id/btnLight"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_centerHorizontal="true"
+			raised_button:buttonColor="#f9f9f9"
+			raised_button:text="Light theme"/>
 
-    <com.simple.material.RaisedButton
-        android:id="@+id/btnDark2"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        raised_button:buttonColor="@color/blue"
-        raised_button:iconStart="@drawable/abc_switch_track_mtrl_alpha"
-        raised_button:text="Raised Button (wrap + icon)"/>
+		<com.simple.material.RaisedButton
+			android:id="@+id/btnDark1"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/btnLight"
+			android:layout_centerHorizontal="true"
+			raised_button:buttonColor="#2E93FB"
+			raised_button:text="Raised Button"/>
 
-    <com.simple.material.RaisedButton
-        android:id="@+id/btnDark3"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        raised_button:buttonColor="@color/blue"
-        raised_button:text="Raised Button (wide)"/>
+		<com.simple.material.RaisedButton
+			android:id="@+id/btnDark2"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/btnDark1"
+			android:layout_centerHorizontal="true"
+			raised_button:buttonColor="@color/blue"
+			raised_button:iconStart="@drawable/ic_reply"
+			raised_button:text="Raised Button with icon"/>
 
-    <com.simple.material.RaisedButton
-        android:id="@+id/btnDark4"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        raised_button:buttonColor="@color/blue"
-        raised_button:iconStart="@drawable/abc_switch_track_mtrl_alpha"
-        raised_button:text="Raised Button (wide + icon)"/>
+		<com.simple.material.RaisedButton
+			android:id="@+id/btnMore"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/btnDark2"
+			android:layout_centerHorizontal="true"
+			raised_button:buttonColor="@color/blue"
+			raised_button:smallButton="true"
+			raised_button:text="Small"/>
+	</RelativeLayout>
 
-    <com.simple.material.RaisedButton
-        android:id="@+id/btnMore"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        raised_button:buttonColor="@color/blue"
-        raised_button:smallButton="true"
-        raised_button:text="More"/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
 
-    <com.simple.material.RaisedButton
-        android:id="@+id/btnEmpty"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:raised_button="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        raised_button:buttonColor="@color/blue"
-        raised_button:smallButton="true"/>
+		<com.simple.material.RaisedButton
+			android:id="@+id/btn1"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			raised_button:buttonColor="@color/blue"
+			raised_button:text="Button1"/>
+
+		<com.simple.material.RaisedButton
+			android:id="@+id/btn2"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:raised_button="http://schemas.android.com/apk/res-auto"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			raised_button:buttonColor="@color/blue"
+			raised_button:text="Button2"/>
+
+		<com.simple.material.FlatButton
+			android:id="@+id/btn3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:text="Flat Button"/>
+	</LinearLayout>
 
 </LinearLayout>
