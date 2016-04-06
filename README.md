@@ -65,9 +65,10 @@ Add following to your `build.gradle` file:
 
 ###### 0.1.7
 1. fixed padding issue ([#8](https://github.com/SufianBabri/simple-material-library/issues/8)),
-1. other improvements to library,
 1. added `FlatButton`,
 1. colorAccent is now picked if no color is provided,
+1. other improvements to library,
+1. small `RaisedButton` is at least 70dp x 36dp
 1. updated demo app,
 1. uploaded demo app to PlayStore.
 
