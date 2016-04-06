@@ -5,6 +5,10 @@ As the names says, it is a simple library which follows [Google's Material Desig
 ## Screenshot
 <img src="https://raw.githubusercontent.com/SufianBabri/simple-material-library/master/screen.png" width="320">
 
+## Sample App
+
+<a href='https://play.google.com/store/apps/details?id=com.sufian.simpleMaterialLibrary&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png' height="100"/></a>
+
 ##Gradle Dependency
 Add following to your `build.gradle` file:
 
@@ -56,10 +60,6 @@ Add following to your `build.gradle` file:
 | Attribute        | Type           | Description  |
 | ------------- |:-------------:|:-----|
 | textColor      | color | the color of the text |
-
-## Sample App
-
-<a href='https://play.google.com/store/apps/details?id=com.sufian.simpleMaterialLibrary&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png' height="100"/></a>
 
 ## Change log
 
