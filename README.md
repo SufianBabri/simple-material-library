@@ -2,6 +2,9 @@
 # Simple Material Library
 As the names says, it is a simple library which follows [Google's Material Design][1]. Lollipop specific effects (such as ripples) won't be ported-back to older versions of Android.
 
+## Deprecated
+Simple Material Library is deprecated in favour of Google's Material dependency. For learning more about integrating that dependency, please refer to [its getting started page](https://material.io/develop/android/docs/getting-started).
+
 ## Screenshot
 <img src="https://raw.githubusercontent.com/SufianBabri/simple-material-library/master/screen.png" width="320">
 
